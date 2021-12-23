@@ -1,0 +1,157 @@
+//insertion in singly linked list
+#include <iostream>
+
+using namespace std;
+struct node
+{
+    int data;
+    node *next;
+} * newnode;
+void createlist(int n)
+{
+    struct node *head, *temp;
+    int data, i;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    if (newnode == NULL)
+    {
+        cout << "can not allocate memory";
+    }
+    else
+    {
+        cout << "enter the data of node 1: ";
+        cin >> data;
+        newnode->data = data;
+        newnode->next = NULL;
+        temp = newnode;
+        for (i = 2; i < n; i++)
+        {
+            head = (struct node *)malloc(sizeof(struct node));
+            if (head == NULL)
+            {
+                cout << "can not allocat memory";
+            }
+            else
+            {
+                cout << "enter the data of node" << i << ":";
+                cin >> data;
+                head->data = data;
+                head->next = NULL;
+                temp->next = head;
+                temp = temp->next;
+            }
+        }
+    }
+}
+
+void insertathead(int data)
+{
+    struct node *head;
+    head = (struct node *)malloc(sizeof(struct node));
+    if (head == NULL)
+    {
+        cout << "can not allocate memory";
+    }
+    else
+    {
+        head->data = data;
+        head->next = newnode;
+        newnode = head;
+    }
+}
+void insertspecific(int data, int pos)
+{
+    int i;
+    struct node *head, *temp;
+    head = (struct node *)malloc(sizeof(struct node));
+    if (head == NULL)
+    {
+        cout << "cant not alloacte memory";
+    }
+    else
+    {
+        head->data = data;
+        head->next = NULL;
+        temp = newnode;
+        for (i = 0; i <= pos; i++)
+        {
+            temp = temp->next;
+            if (temp == NULL)
+                break;
+        }
+        if (temp != NULL)
+        {
+            head->next = temp->next;
+            temp->next = head;
+        }
+        else
+        {
+            cout << "data can not be enterd at the specific position";
+            ;
+        }
+    }
+}
+void insertatend(int data)
+{
+    struct node *head, *temp;
+    head = (struct node *)malloc(sizeof(struct node));
+    if (head == NULL)
+    {
+        cout << "can not allocate memory";
+    }
+    else
+    {
+
+        head->data = data;
+        head->next = NULL;
+        temp = newnode;
+        while (temp->next != NULL)
+
+            temp = temp->next;
+        temp->next = head;
+    }
+}
+void dispaly()
+{
+    struct node *temp;
+    if (newnode == NULL)
+    {
+        cout << "no data in the list";
+    }
+    else
+    {
+        temp = newnode;
+        cout << "linked list: ";
+        while (temp != NULL)
+        {
+            cout << "->" << temp->data;
+            temp = temp->next;
+        }
+    }
+}
+int main()
+{
+    int n, data, pos;
+    cout << "enter the no. of nodes of the linked list\n";
+    cin >> n;
+    createlist(n);
+    cout << "\nlinked list data\n";
+    dispaly();
+    cout << "\nenter the data of node you want to insert at starting\n";
+    cin >> data;
+    insertathead(data);
+    cout << "\n linked list after insertion\n";
+    dispaly();
+    cout << "\nenter the data you want to insert at a specific position\n";
+    cin >> data;
+    cout << "\n enter the postion at which you want to insert the data\n";
+    cin >> pos;
+    insertspecific(data, pos);
+    cout << "\nlinked list after insertion at specific position\n";
+    dispaly();
+    cout << "\n enter the data of node you want to insert at the end\n";
+    cin >> data;
+    insertatend(data);
+    cout << "\nlinked list after end insertion\n";
+    dispaly();
+    return 0;
+}
